@@ -2,8 +2,34 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
+import { StoreMetadata } from "../components/StoreMetadata";
+import { useState } from "react";
+import Image from "next/image";
 
 const Home: NextPage = () => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [img, setImg] = useState([]);
+  const [video, setVideo] = useState([]);
+  const [audio, setAudio] = useState([]);
+  const [ipfsUri, setIpfsUri] = useState("");
+  const [ipfs, setIpfs] = useState("");
+  const upload = async () => {
+    try {
+      const metadata = await StoreMetadata(img, title, description, video, audio);
+      const uri = metadata.url;
+      setIpfs(uri);
+      const url = `https://ipfs.io/ipfs/${metadata.ipnft}`;
+      setIpfsUri(url);
+      console.log("NFT metadata uploaded to IPFS");
+      window.alert(
+        "NFT metadata uploaded to ipfs , Click on IPFS link to use the data"
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -14,63 +40,69 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <div className={styles.connect}>
+        <ConnectButton />
+      </div>
 
       <main className={styles.main}>
-        <ConnectButton />
+        <div className={styles.form}>
+          <div className={styles.firstrow}>
+            <input
+              className={styles.input}
+              type="text"
+              value={title}
+              placeholder="Title"
+              onChange={(e) => setTitle(e.target.value)}
+            ></input>
+          </div>
+          <div className={styles.secondrow}>
+            <input
+              className={styles.input}
+              type="text"
+              value={description}
+              placeholder="Description "
+              onChange={(e) => setDescription(e.target.value)}
+            ></input>
+          </div>
+          <div className={styles.thirdrow}>Image</div>
+          <label className={styles.inputLabel}>
+            <input
+              className={styles.inputBox}
+              type="file"
+              accept="image/*"
+              onChange={(e) => setImg(e.target.files[0])}
+            ></input>
+          </label>
+          <div className={styles.thirdrow}>Video</div>
 
-        <h1 className={styles.title}>
-          Welcome to <a href="">RainbowKit</a> + <a href="">wagmi</a> +{' '}
-          <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+          <label className={styles.inputLabel}>
+            <input
+              className={styles.inputBox}
+              type="file"
+              accept="video/*"
+              onChange={(e) => setVideo(e.target.files[1])}
+            ></input>
+          </label>
+          <div className={styles.thirdrow}>Audio</div>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
+          <label className={styles.inputLabel}>
+            <input
+              className={styles.inputBox}
+              type="file"
+              accept="audio/*"
+              onChange={(e) => setAudio(e.target.files[2])}
+            ></input>
+          </label>
 
-        <div className={styles.grid}>
-          <a href="https://rainbowkit.com" className={styles.card}>
-            <h2>RainbowKit Documentation &rarr;</h2>
-            <p>Learn how to customize your wallet connection flow.</p>
-          </a>
-
-          <a href="https://wagmi.sh" className={styles.card}>
-            <h2>wagmi Documentation &rarr;</h2>
-            <p>Learn how to interact with Ethereum.</p>
-          </a>
-
-          <a
-            href="https://github.com/rainbow-me/rainbowkit/tree/main/examples"
-            className={styles.card}
-          >
-            <h2>RainbowKit Examples &rarr;</h2>
-            <p>Discover boilerplate example RainbowKit projects.</p>
-          </a>
-
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Next.js Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Next.js Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+          <div className={styles.buttonRow}>
+            <button onClick={upload} className={styles.button}>
+              MInt
+            </button>
+          </div>
         </div>
       </main>
+
+
 
       <footer className={styles.footer}>
         <a href="https://rainbow.me" target="_blank" rel="noopener noreferrer">

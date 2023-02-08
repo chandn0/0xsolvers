@@ -13,14 +13,13 @@ const { chains, provider, webSocketProvider } = configureChains(
     polygon,
     optimism,
     arbitrum,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [goerli] : []),
   ],
   [
-    alchemyProvider({
-      // This is Alchemy's default API key.
-      // You can get your own at https://dashboard.alchemyapi.io
-      apiKey: '_gg7wSSi0KMBsdKnGVfHDueq6xMB9EkC',
-    }),
+    // alchemyProvider({
+    //   // This is Alchemy's default API key.
+    //   // You can get your own at https://dashboard.alchemyapi.io
+    //   apiKey: '_gg7wSSi0KMBsdKnGVfHDueq6xMB9EkC',
+    // }),
     publicProvider(),
   ]
 );
