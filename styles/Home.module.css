@@ -116,6 +116,7 @@
   -webkit-backdrop-filter: blur(8.5px);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
+  margin: auto;
 }
 
 .firstrow {
@@ -141,6 +142,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
 }
 
 .buttonrow {
@@ -162,7 +164,7 @@
   font-size: large;
   color: black;
   border-color: white;
-  margin-bottom: 2px;
+  margin-bottom: 30px;
 }
 
 .input2 {
@@ -204,10 +206,10 @@
   color: black;
   letter-spacing: 1px;
   font-size: 26px;
-  width: 350px;
+  width: 1000px;
   margin-bottom: 10px;
   padding: 10px 20px;
-  text-align: center;
+  /* text-align: center; */
 }
 
 .input::placeholder {
@@ -227,4 +229,26 @@
   top: 5px;
   /* width: 200px; */
   position: absolute;
+}
+
+.autoheight {
+  /* CSS */
+  /* width: 100%; */
+  /* margin-top: 5%; */
+  border: 0;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  /* backdrop-filter: blur(1px); */
+  -webkit-backdrop-filter: blur(1px);
+  border-radius: 10px;
+  /* border: 1px solid rgba(255, 255, 255, 0.18); */
+  /* color: black; */
+  letter-spacing: 1px;
+  font-size: 26px;
+  width: 1000px;
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  /* text-align: center; */
+  height: auto;
 }
